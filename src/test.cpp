@@ -1,5 +1,7 @@
 #include <iostream>
+#include "../include/test.h"
 
-void test() {
-    std::cout << "Hello World\n";
+using namespace opencli;
+void test::testFunc() {
+    std::cout << "Hello World from OpenCLI\n";
 }
