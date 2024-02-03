@@ -22,6 +22,6 @@ void CLI::reset() {
 
 void CLI::printLnColor(std::string s, colors color) {
     CLI::setColor(color);
-    std::cout << s;
+    std::cout << s << "\n";
     CLI::setColor(fgDefault);
 }
