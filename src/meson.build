@@ -7,7 +7,8 @@
 pkg = import('pkgconfig')
 
 source_files = [
-    'colors.cpp'
+    'colors.cpp',
+    'cli.cpp'
 ]
 
 opencxx_cli = library('opencxx-cli',
