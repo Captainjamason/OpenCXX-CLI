@@ -1,3 +1,9 @@
+##  opencxx_cli
+##  ./meson.build
+##  Copyright 2024 - hurbIndustries
+##  JPD
+
+
 project('opencxx-cli', 'cpp',
     version : '0.0.1',
     license : 'GPL3',

@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+##  opencxx_cli
+##  install.sh
+##  Copyright 2024 - hurbIndustries
+##  JPD
+
+
 meson setup build
 cd build
 meson compile 
