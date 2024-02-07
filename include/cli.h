@@ -31,7 +31,7 @@ namespace opencxx_cli {
         };
 
         // Add your own entry and handler
-        void addEntry(std::string lhand, std::string shand, int (*func)(), std::vector<CLI::entryData> entries);
+        void addEntry(std::string lhand, std::string shand, int (*func)(), std::vector<CLI::entryData> *entries);
 
         std::vector<std::string> vectorize(int argc, char *argv[]);
         void parse(std::vector<entryData> entries, std::vector<std::string> args);

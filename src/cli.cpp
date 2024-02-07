@@ -11,12 +11,12 @@
 using namespace opencxx_cli;
 using namespace std;
 
-void CLI::addEntry(string lhand, string shand, int(*func)(), vector<CLI::entryData> entries) {
+void CLI::addEntry(string lhand, string shand, int(*func)(), vector<CLI::entryData> *entries) {
     CLI::entryData entry;
     entry.lhand = lhand;
     entry.shand = shand;
     entry.func = func;
-    entries.push_back(entry);
+    entries -> push_back(entry);
 }
 
 void CLI::ver(struct programInfo info) {
@@ -39,8 +39,14 @@ vector<string> CLI::vectorize(int argc, char *argv[]) {
 void CLI::parse(vector<CLI::entryData> entries, vector<string> args) {
     for(int i = 0; i < args.size(); i++) {
         cout << "[ARGUMENT]=" << i << ": " << args[i] << "\n";
-        if(args[0] == entries[0].lhand) {
-            entries[0].func();
+        for(int j = 0; j < entries.size(); j++) {
+            if(args[i] == entries[j].shand) {
+                entries[j].func();
+            } else if (args[i] == entries[j].lhand) {
+                entries[j].func();
+            } else {
+                exit(1);
+            }
         }
     }
 } 
