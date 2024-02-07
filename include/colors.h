@@ -9,17 +9,17 @@
 #include <string>
 
 namespace opencxx_cli {
-    class CLI {
+    class colors {
         public:
-        enum colors {
+        enum colorCode {
             fgRed = 31,
             fgGreen = 32,
             fgYellow = 33,
             fgBlue = 34,
             fgDefault = 39
         };
-        void setColor(colors color);
-        void printLnColor(std::string s, colors color);
+        void setColor(colorCode color);
+        void printLnColor(std::string s, colorCode color);
         void reset();
     };
 }

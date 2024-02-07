@@ -17,6 +17,7 @@ void CLI::addEntry(std::string lhand, std::string shand, std::function<int ()> f
     CLI::entries.push_back(entry);
 }
 
-std::string CLI::help(CLI::handler handler) {
+void CLI::help(CLI::handler handler) {
     std::string string = handler.name + "\n";
+    std::cout << string;
 }

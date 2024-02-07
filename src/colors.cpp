@@ -8,20 +8,20 @@
 
 using namespace opencxx_cli;
 
-void CLI::setColor(colors color) {
+void colors::setColor(colorCode color) {
     std::string string = "\033[";
-    std::string colorS = std::to_string(color);
-    string.append(colorS);
+    std::string colorString = std::to_string(color);
+    string.append(colorString);
     string.append("m");
     std::cout << string;
 }
 
-void CLI::reset() {
-    CLI::setColor(fgDefault);
+void colors::reset() {
+    colors::setColor(fgDefault);
 }
 
-void CLI::printLnColor(std::string s, colors color) {
-    CLI::setColor(color);
+void colors::printLnColor(std::string s, colorCode color) {
+    colors::setColor(color);
     std::cout << s << "\n";
-    CLI::setColor(fgDefault);
+    colors::setColor(fgDefault);
 }

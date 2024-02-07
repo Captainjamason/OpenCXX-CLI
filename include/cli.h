@@ -21,8 +21,8 @@ namespace opencxx_cli {
         };
 
         // Basic commands that *always* will work
-        std::string help(handler);
-        std::string ver(handler);
+        void help(handler);
+        void ver(handler);
 
         struct entry {
             std::string lhand;
