@@ -14,26 +14,27 @@ namespace opencxx_cli {
     class CLI {
         public: 
 
-        struct handler {
+        struct programInfo {
             std::string version;
             std::string name;
             std::string author;
         };
 
         // Basic commands that *always* will work
-        void help(handler);
-        void ver(handler);
+        void help();
+        void ver(struct programInfo info);
 
-        struct entry {
+        struct entryData {
             std::string lhand;
             std::string shand;
-            std::function<int()> func;
+            int(*func)();
         };
 
-        std::vector<entry> entries;
-
         // Add your own entry and handler
-        void addEntry(std::string lhand, std::string shand, std::function<int()> func);
+        void addEntry(std::string lhand, std::string shand, int (*func)(), std::vector<CLI::entryData> entries);
+
+        std::vector<std::string> vectorize(int argc, char *argv[]);
+        void parse(std::vector<entryData> entries, std::vector<std::string> args);
     };
 }
 
