@@ -39,8 +39,8 @@ vector<string> CLI::vectorize(int argc, char *argv[]) {
 void CLI::parse(vector<CLI::entryData> entries, vector<string> args) {
     for(int i = 0; i < args.size(); i++) {
         cout << "[ARGUMENT]=" << i << ": " << args[i] << "\n";
-        if(args[i] == entries[i].lhand) {
-            entries[i].func();
+        if(args[0] == entries[0].lhand) {
+            entries[0].func();
         }
     }
 } 
