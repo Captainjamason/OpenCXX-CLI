@@ -13,7 +13,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: install-deps
-      run: apt install meson ninja
     - name: run-install
       run: ./install
