@@ -3,13 +3,36 @@ A basic library providing an extensible CLI interface written in C++.
 This library is meant to help with alot of argument boilerplating. Speeding up workflows of developing primarily CLI based applications.
 
 ## Usage:
-*WIP*
+Example program:
+```cpp
+#include <iostream>
+#include <opencxx-cli/cli.h>
+
+using namespace opencxx_cli;
+
+int testFunc() {
+    std::cout << "Hello World!\n";
+    return 0;
+}
+
+int main(int argc, char *argv[]) {
+    opencxx_cli::CLI cli;
+
+    std::vector<CLI::entryData> entries;
+    cli.addEntry("--test", "-t", testFunc, &entries);
+    cli.parse(entries, cli.vectorize(argc, argv));
+
+    return 0;
+}
+```
+
+More information can be found in the wiki. But the general idea is to create a vector to store entries, add entries, then run `cli.parse()` to let it handle the rest. 
 
 ## Planned Features:
 - [x] Basic Color Manipulation.
 - [ ] Automated argument handling.
   - [ ] Populate `--help` with new argument checks.
-  - [ ] Iterate over vector of arguments
+  - [x] Iterate over vector of arguments
   - [ ] Call respective functions that were declared earlier in code.
 - [ ] Flavortext and colorizing of default commands.
 
