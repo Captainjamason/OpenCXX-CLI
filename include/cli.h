@@ -13,29 +13,38 @@
 namespace opencxx_cli {
     class CLI {
         public: 
-        bool debug = true;
+        // Debug, This will enable with --opencxx-cli-debug and 
+        // allow for library specific output.
+        bool debug = false;
+
+        // Struct used for versioning, Not strictly necessary, just to give
+        // the option.
         struct programInfo {
             std::string version;
             std::string name;
             std::string author;
         };
-
+        // entryData should *always* be added using addEntry().
         struct entryData {
             std::string lhand;
             std::string shand;
             int(*func)();
         };
 
-        // Basic commands that *always* will work
+        // Basic commands.
         void help(std::vector<entryData> entries);
         void ver(struct programInfo info);
 
-        // Add your own entry and handler
+        // addEntry will reference the struct above, Used to add into a vector that
+        // is provided from the application.
         void addEntry(std::string lhand, std::string shand, int (*func)(), std::vector<CLI::entryData> *entries);
-
+        
+        // Useful function to quickly make an argument vector, this can be run
+        // inline.
         std::vector<std::string> vectorize(int argc, char *argv[]);
         void parse(std::vector<entryData> entries, std::vector<std::string> args);
 
+        // CLI output messages.
         void error(std::string s);
         void warn(std::string s);
         void info(std::string s);

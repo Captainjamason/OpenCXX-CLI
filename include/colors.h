@@ -11,6 +11,8 @@
 namespace opencxx_cli {
     class colors {
         public:
+        // Some basic terminal color integers, This is used for
+        // setting the color in different functions...
         enum colorCode {
             fgRed = 31,
             fgGreen = 32,
