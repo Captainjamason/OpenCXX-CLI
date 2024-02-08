@@ -17,5 +17,5 @@ jobs:
       with:
         python-version: '3.x'
     - run: pip install meson ninja
-    - name: run-install
-      run: ./install.sh
+    - run: meson setup build
+    - run: meson compile -C build
