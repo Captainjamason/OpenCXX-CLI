@@ -16,46 +16,51 @@ using namespace std;
 
 // Initialize the main 3 debug/error message commands, 
 // along with some nice formatting from the color library.
-void CLI::error(string s) {
+int CLI::error(string s) {
     colors color;
     color.setColor(color.fgRed);
     cout << "[ERROR] ";
     color.reset();
     cout << s << "\n";
+    return 0;
 }
-void CLI::warn(string s) {
+int CLI::warn(string s) {
     colors color;
     color.setColor(color.fgYellow);
     cout << "[WARN] ";
     color.reset();
     cout << s << "\n";
+    return 0;
 }
-void CLI::info(string s) {
+int CLI::info(string s) {
     colors color;
     color.setColor(color.fgBlue);
     cout << "[INFO] ";
     color.reset();
     cout << s << "\n";
+    return 0;
 }
 
 // addEntry() will push a new entryData struct (cli.h) into an entries
 // vector, which is established application side and a vector is provided.
-void CLI::addEntry(string lhand, string shand, int(*func)(), vector<CLI::entryData> *entries) {
+int CLI::addEntry(string lhand, string shand, int(*func)(), vector<CLI::entryData> *entries) {
     CLI::entryData entry;
     entry.lhand = lhand;
     entry.shand = shand;
     entry.func = func;
     entries -> push_back(entry);
+    return 0;
 }
 
 // Basic version command, This may not ever be called but is available for
 // implementation client side.
-void CLI::ver(struct programInfo info) {
+int CLI::ver(struct programInfo info) {
     string output;
     output.append("[" + info.name + "]\n");
     output.append(info.version + "\n");
     output.append(info.author + "\n");
     cout << output;
+    return 0;
 }
 
 // Vectorize allows for a quick function to take argc and argv[] and return
@@ -72,14 +77,14 @@ vector<string> CLI::vectorize(int argc, char *argv[]) {
 // TO-DO: Help command, This is hard coded into the library and will
 // always be available in the program. This will need to iterate over
 // a vector of the entries.
-void CLI::help(vector<CLI::entryData> entries) {
+int CLI::help(vector<CLI::entryData> entries) {
     cout << "[opencxx-cli] Help is under construction...\n";
-    exit(1);
+    return 0;
 }
 
 // Here's the big one, This will iterate and parse arguments, along with calling the
 // application side function...
-void CLI::parse(vector<CLI::entryData> entries, vector<string> args) {
+int CLI::parse(vector<CLI::entryData> entries, vector<string> args) {
     // if no args then stop, no need to be wasting time.
     if(args.size() == 0) {
         error("No arguments provided... Please use --help");

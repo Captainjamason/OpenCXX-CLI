@@ -3,6 +3,7 @@
 ##  Copyright 2024 - hurbIndustries
 ##  JPD
 
+testDep = dependency('opencxx-cli')
 
 pkg = import('pkgconfig')
 
@@ -16,6 +17,12 @@ opencxx_cli = library('opencxx-cli',
     include_directories : inc,
 )
 
-unitTests = executable('unitTests', 'unitTests.cpp')
+unitTests = executable('unitTests', 
+    'unitTests.cpp',
+    include_directories : inc,
+    dependencies : [testDep]
+)
+
+test('test', unitTests)
 
 pkg.generate(opencxx_cli)

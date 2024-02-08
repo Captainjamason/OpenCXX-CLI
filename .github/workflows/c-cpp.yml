@@ -19,3 +19,4 @@ jobs:
     - run: pip install meson ninja
     - run: meson setup build
     - run: meson compile -C build
+    - run: meson test -C build

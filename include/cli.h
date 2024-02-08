@@ -32,22 +32,22 @@ namespace opencxx_cli {
         };
 
         // Basic commands.
-        void help(std::vector<entryData> entries);
-        void ver(struct programInfo info);
+        int help(std::vector<entryData> entries);
+        int ver(struct programInfo info);
 
         // addEntry will reference the struct above, Used to add into a vector that
         // is provided from the application.
-        void addEntry(std::string lhand, std::string shand, int (*func)(), std::vector<CLI::entryData> *entries);
+        int addEntry(std::string lhand, std::string shand, int (*func)(), std::vector<CLI::entryData> *entries);
         
         // Useful function to quickly make an argument vector, this can be run
         // inline.
         std::vector<std::string> vectorize(int argc, char *argv[]);
-        void parse(std::vector<entryData> entries, std::vector<std::string> args);
+        int parse(std::vector<entryData> entries, std::vector<std::string> args);
 
         // CLI output messages.
-        void error(std::string s);
-        void warn(std::string s);
-        void info(std::string s);
+        int error(std::string s);
+        int warn(std::string s);
+        int info(std::string s);
     };
 }
 
