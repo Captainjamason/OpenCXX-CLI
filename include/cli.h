@@ -13,7 +13,7 @@
 namespace opencxx_cli {
     class CLI {
         public: 
-
+        bool debug = true;
         struct programInfo {
             std::string version;
             std::string name;

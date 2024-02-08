@@ -72,7 +72,13 @@ void CLI::parse(vector<CLI::entryData> entries, vector<string> args) {
         exit(1);
     }
     for(int i = 0; i < args.size(); i++) {
-        cout << "[ARGUMENT]=" << i << ": " << args[i] << "\n";
+        if(args[i] == "--opencxx-cli-debug") {
+            debug = true;
+        }
+        if(debug == true) {
+            cout << "[ARGUMENT]=" << i << ": " << args[i] << "\n";
+        }
+
         if(args[i] == "--help" || args[i] == "-h") {
             help(entries);
         } else {
@@ -81,10 +87,10 @@ void CLI::parse(vector<CLI::entryData> entries, vector<string> args) {
                     entries[j].func();
                 } else if (args[i] == entries[j].lhand) {
                     entries[j].func();
-                } else {
-                    error("Invalid arguments provided... Please use --help");
+                } else if (args[i] != "--opencxx-cli-debug") {
+                    error("Invalid arguments... Please use --help");
                     exit(1);
-                }
+                }  
             }
         }
        
