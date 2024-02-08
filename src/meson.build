@@ -3,8 +3,6 @@
 ##  Copyright 2024 - hurbIndustries
 ##  JPD
 
-testDep = dependency('opencxx-cli')
-
 pkg = import('pkgconfig')
 
 source_files = [
@@ -20,7 +18,7 @@ opencxx_cli = library('opencxx-cli',
 unitTests = executable('unitTests', 
     'unitTests.cpp',
     include_directories : inc,
-    dependencies : [testDep]
+    link_with : [opencxx_cli]
 )
 
 test('test', unitTests)
