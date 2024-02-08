@@ -16,4 +16,6 @@ opencxx_cli = library('opencxx-cli',
     include_directories : inc,
 )
 
+unitTests = executable('unitTests', 'unitTests.cpp')
+
 pkg.generate(opencxx_cli)
