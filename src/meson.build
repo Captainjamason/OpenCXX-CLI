@@ -21,6 +21,11 @@ unitTests = executable('unitTests',
     link_with : [opencxx_cli]
 )
 
-test('test', unitTests)
-
+test('err', unitTests, args : ['-err'])
+test('warn', unitTests, args : ['-warn'])
+test('info', unitTests, args : ['-info'])
+test('addEntryOnce', unitTests, args : ['-addEntryOnce'])
+test('addEntryTwice', unitTests, args : ['-addEntryTwice'])
+test('testParse', unitTests, args : ['-testParse'])
+test('help', unitTests, args : ['-help'])
 pkg.generate(opencxx_cli)
