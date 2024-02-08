@@ -7,9 +7,34 @@
 #include <string>
 #include <vector>
 #include "../include/cli.h"
+#include "../include/colors.h"
 
 using namespace opencxx_cli;
 using namespace std;
+
+void CLI::error(string s) {
+    colors color;
+    color.setColor(color.fgRed);
+    cout << "[ERROR] ";
+    color.reset();
+    cout << s << "\n";
+}
+
+void CLI::warn(string s) {
+    colors color;
+    color.setColor(color.fgYellow);
+    cout << "[WARN] ";
+    color.reset();
+    cout << s << "\n";
+}
+
+ void CLI::info(string s) {
+    colors color;
+    color.setColor(color.fgBlue);
+    cout << "[INFO] ";
+    color.reset();
+    cout << s << "\n";
+ }
 
 void CLI::addEntry(string lhand, string shand, int(*func)(), vector<CLI::entryData> *entries) {
     CLI::entryData entry;
@@ -36,17 +61,32 @@ vector<string> CLI::vectorize(int argc, char *argv[]) {
     return args;
 }
 
+void CLI::help(vector<CLI::entryData> entries) {
+    cout << "[opencxx-cli] Help is under construction...\n";
+    exit(1);
+}
+
 void CLI::parse(vector<CLI::entryData> entries, vector<string> args) {
+    if(args.size() == 0) {
+        error("No arguments provided... Please use --help");
+        exit(1);
+    }
     for(int i = 0; i < args.size(); i++) {
         cout << "[ARGUMENT]=" << i << ": " << args[i] << "\n";
-        for(int j = 0; j < entries.size(); j++) {
-            if(args[i] == entries[j].shand) {
-                entries[j].func();
-            } else if (args[i] == entries[j].lhand) {
-                entries[j].func();
-            } else {
-                exit(1);
+        if(args[i] == "--help" || args[i] == "-h") {
+            help(entries);
+        } else {
+            for(int j = 0; j < entries.size(); j++) {
+                if(args[i] == entries[j].shand) {
+                    entries[j].func();
+                } else if (args[i] == entries[j].lhand) {
+                    entries[j].func();
+                } else {
+                    error("Invalid arguments provided... Please use --help");
+                    exit(1);
+                }
             }
         }
+       
     }
 } 

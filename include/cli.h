@@ -20,21 +20,25 @@ namespace opencxx_cli {
             std::string author;
         };
 
-        // Basic commands that *always* will work
-        void help();
-        void ver(struct programInfo info);
-
         struct entryData {
             std::string lhand;
             std::string shand;
             int(*func)();
         };
 
+        // Basic commands that *always* will work
+        void help(std::vector<entryData> entries);
+        void ver(struct programInfo info);
+
         // Add your own entry and handler
         void addEntry(std::string lhand, std::string shand, int (*func)(), std::vector<CLI::entryData> *entries);
 
         std::vector<std::string> vectorize(int argc, char *argv[]);
         void parse(std::vector<entryData> entries, std::vector<std::string> args);
+
+        void error(std::string s);
+        void warn(std::string s);
+        void info(std::string s);
     };
 }
 
