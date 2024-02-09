@@ -89,10 +89,10 @@ int CLI::help(vector<CLI::entryData> entries) {
 // application side function...
 int CLI::parse(vector<CLI::entryData> entries, vector<string> args) {
     // if no args then stop, no need to be wasting time.
-    if(args.size() == 0) {
+    if(args.size() == 0 && debug != true) {
         error("No arguments provided... Please use --help");
         exit(1);
-    }
+    } 
     // Iterate over args provided...
     for(int i = 0; i < args.size(); i++) {
         // Hardcoded debugging command. Useful for developers...
@@ -115,8 +115,10 @@ int CLI::parse(vector<CLI::entryData> entries, vector<string> args) {
                 }
                 if(args[i] == entries[j].shand) {
                     entries[j].func();
+                    return(0);
                 } else if (args[i] == entries[j].lhand) {
                     entries[j].func();
+                    return(0);
                 }
                 // This specific clause is needed for the debug to work
                 // without interrupting the program flow.
