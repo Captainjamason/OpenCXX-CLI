@@ -49,6 +49,9 @@ int CLI::addEntry(string lhand, string shand, int(*func)(), vector<CLI::entryDat
     entry.shand = shand;
     entry.func = func;
     entries -> push_back(entry);
+    if(CLI::debug == true) {
+        cout << entry.shand << "\n";
+    }
     return 0;
 }
 
@@ -107,17 +110,20 @@ int CLI::parse(vector<CLI::entryData> entries, vector<string> args) {
             help(entries);
         } else {
             for(int j = 0; j < entries.size(); j++) {
+                if(CLI::debug == true) {
+                    cout << entries[j].lhand << "\n";
+                }
                 if(args[i] == entries[j].shand) {
                     entries[j].func();
                 } else if (args[i] == entries[j].lhand) {
                     entries[j].func();
-                } 
+                }
                 // This specific clause is needed for the debug to work
                 // without interrupting the program flow.
-                else if (args[i] != "--opencxx-cli-debug") {
-                    error("Invalid arguments... Please use --help");
-                    exit(1);
-                }  
+                //else if (args[i] != "--opencxx-cli-debug") {
+                //    error("Invalid arguments... Please use --help");
+                //    exit(1);
+                //}  
             }
         }
        
