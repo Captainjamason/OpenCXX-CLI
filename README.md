@@ -33,7 +33,7 @@ More information can be found in the wiki. But the general idea is to create a v
 - [ ] Automated argument handling.
   - [ ] Populate `--help` with new argument checks.
   - [x] Iterate over vector of arguments
-  - [ ] Call respective functions that were declared earlier in code.
+  - [X] Call respective functions that were declared earlier in code.
 - [ ] Flavortext and colorizing of default commands.
 
 ## Compiling/Installing
