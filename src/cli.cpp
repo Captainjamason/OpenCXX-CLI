@@ -11,9 +11,11 @@
 #include "../include/cli.h"
 #include "../include/colors.h"
 
+// Namespace declarations here, May rid of in the future.
 using namespace opencxx_cli;
 using namespace std;
 
+// Global argument return string. I wish this was handled a bit better but for now its good.
 string argReturn;
 
 // Initialize the main 3 debug/error message commands, 
@@ -43,11 +45,14 @@ int CLI::info(string s) {
     return 0;
 }
 
+// Small helper function to set the argReturn varaible.
 int addArg(string arg) {
     argReturn = arg;
     return 1;
 }
 
+// returnArg() *must* be called from a user function if `arg = true`, This will be beneficial for
+// any sort of functions that require parameters.
 string CLI::returnArg() {
     return argReturn;
 }
@@ -90,6 +95,7 @@ vector<string> CLI::vectorize(int argc, char *argv[]) {
     return args;
 }
 
+// help() is bound to `--help` by default. May be customizable in the future.
 int CLI::help(vector<CLI::entryData> entries) {
     //cout << "[opencxx-cli] Help is under construction...\n";
     CLI::programInfo pgInfo;

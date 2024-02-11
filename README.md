@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
     opencxx_cli::CLI cli;
 
     std::vector<CLI::entryData> entries;
-    cli.addEntry("--test", "-t", testFunc, &entries);
+    cli.addEntry("--test", "-t", testFunc, &entries, false, "This will show on help()");
     cli.parse(entries, cli.vectorize(argc, argv));
 
     return 0;
@@ -28,13 +28,20 @@ int main(int argc, char *argv[]) {
 
 More information can be found in the wiki. But the general idea is to create a vector to store entries, add entries, then run `cli.parse()` to let it handle the rest. 
 
-## Planned Features:
+## Features:
 - [x] Basic Color Manipulation.
-- [ ] Automated argument handling.
-  - [ ] Populate `--help` with new argument checks.
+- [X] Automated argument handling.
+  - [X] Populate `--help` with new argument checks.
   - [x] Iterate over vector of arguments
   - [X] Call respective functions that were declared earlier in code.
+  - [X] `returnArg()`, Used for getting the next argument for custom functions.
 - [ ] Flavortext and colorizing of default commands.
+  - [ ] Options for default menu colorizations through a basic function and structs.
+- [ ] `libCURL` like configuration on the fly.
+- [ ] `--version` default menu available for fetching too.
+
+__More coming soon__
+
 
 ## Compiling/Installing
 ### Requirements:
@@ -55,5 +62,7 @@ Use the provided `./install.sh` file, While it's currently a quick and dirty scr
 
 Made with love. Started by JPD
 <3
+
+__Questions? Comments? Requests? Want to chat? Join our Discord:__ https://discord.gg/JCHa4h4Y55
 
 hurbIndustries 2024

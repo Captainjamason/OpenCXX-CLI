@@ -44,12 +44,13 @@ int main(int argc, char* argv[]) {
         }
     }
 
+    // Test adding one entry.
     if(test == "-addEntryOnce") {
         cli.addEntry("--test", "-t", testFunc, &entries);
         entries[0].func();
     }
 
-    //test add entry
+    // Test adding two entry.
     if(test == "-addEntryTwice") {
         cli.addEntry("--test", "-t", testFunc, &entries);
         cli.addEntry("-test2", "-t2", testFunc, &entries);
@@ -57,6 +58,7 @@ int main(int argc, char* argv[]) {
         entries[1].func();
     }
 
+    // Test parsing of arguments.
     if(test == "-testParse") {
         cli.addEntry("--test", "-t", testFunc, &entries);
         cli.addEntry("--t2", "-t2", testFunc, &entries);
