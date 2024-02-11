@@ -10,13 +10,21 @@
 // Some basic initialization...
 using namespace opencxx_cli;
 std::vector<CLI::entryData> entries;
+CLI cli;
 
 int testFunc() {
     return 0;
 }
 
+int testArgPassFunc() {
+    if(cli.returnArg() != "") {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
 int main(int argc, char* argv[]) {
-    CLI cli;
     std::string test = argv[1];
 
     // test output messages...
@@ -61,5 +69,11 @@ int main(int argc, char* argv[]) {
             std::cout << "err: help() failed!\n";
             return 1;
         }
+    }
+
+    // test argument passing()
+    if(test == "-testArgPass") {
+        cli.addEntry("--test", "-t", testArgPassFunc, &entries, true);
+        cli.parse(entries, cli.vectorize(argc, argv));
     }
 }
