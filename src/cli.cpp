@@ -43,11 +43,12 @@ int CLI::info(string s) {
 
 // addEntry() will push a new entryData struct (cli.h) into an entries
 // vector, which is established application side and a vector is provided.
-int CLI::addEntry(string lhand, string shand, int(*func)(), vector<CLI::entryData> *entries) {
+int CLI::addEntry(string lhand, string shand, int(*func)(), vector<CLI::entryData> *entries, std::string desc) {
     CLI::entryData entry;
     entry.lhand = lhand;
     entry.shand = shand;
     entry.func = func;
+    entry.desc = desc;
     entries -> push_back(entry);
     if(CLI::debug == true) {
         cout << entry.shand << "\n";
@@ -77,11 +78,11 @@ vector<string> CLI::vectorize(int argc, char *argv[]) {
     return args;
 }
 
-// TO-DO: Help command, This is hard coded into the library and will
-// always be available in the program. This will need to iterate over
-// a vector of the entries.
 int CLI::help(vector<CLI::entryData> entries) {
-    cout << "[opencxx-cli] Help is under construction...\n";
+    //cout << "[opencxx-cli] Help is under construction...\n";
+    for(int i = 0; i < entries.size(); i++) {
+        std::cout << entries[i].lhand << " || " << entries[i].shand << ": " << entries[i].desc << "\n";
+    }
     return 0;
 }
 
@@ -108,6 +109,7 @@ int CLI::parse(vector<CLI::entryData> entries, vector<string> args) {
         // Otherwise continue iterating
         if(args[i] == "--help" || args[i] == "-h") {
             help(entries);
+            return 0;
         } else {
             for(int j = 0; j < entries.size(); j++) {
                 if(CLI::debug == true) {
@@ -120,14 +122,11 @@ int CLI::parse(vector<CLI::entryData> entries, vector<string> args) {
                     entries[j].func();
                     return(0);
                 }
-                // This specific clause is needed for the debug to work
-                // without interrupting the program flow.
-                //else if (args[i] != "--opencxx-cli-debug") {
-                //    error("Invalid arguments... Please use --help");
-                //    exit(1);
-                //}  
+                else if (args[i] != "--opencxx-cli-debug" && j == args.size()) {
+                    error("Invalid arguments... Please use --help");
+                    exit(1);
+                }  
             }
         }
-       
     }
 } 
