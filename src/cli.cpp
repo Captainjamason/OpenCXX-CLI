@@ -14,6 +14,8 @@
 using namespace opencxx_cli;
 using namespace std;
 
+string argReturn;
+
 // Initialize the main 3 debug/error message commands, 
 // along with some nice formatting from the color library.
 int CLI::error(string s) {
@@ -41,14 +43,24 @@ int CLI::info(string s) {
     return 0;
 }
 
+int addArg(string arg) {
+    argReturn = arg;
+    return 1;
+}
+
+string CLI::returnArg() {
+    return argReturn;
+}
+
 // addEntry() will push a new entryData struct (cli.h) into an entries
 // vector, which is established application side and a vector is provided.
-int CLI::addEntry(string lhand, string shand, int(*func)(), vector<CLI::entryData> *entries, std::string desc) {
+int CLI::addEntry(string lhand, string shand, int(*func)(), vector<CLI::entryData> *entries, bool arg, std::string desc) {
     CLI::entryData entry;
     entry.lhand = lhand;
     entry.shand = shand;
     entry.func = func;
     entry.desc = desc;
+    entry.arg = arg;
     entries -> push_back(entry);
     if(CLI::debug == true) {
         cout << entry.shand << "\n";
@@ -120,6 +132,13 @@ int CLI::parse(vector<CLI::entryData> entries, vector<string> args) {
                     cout << entries[j].lhand << "\n";
                 }
                 if(args[i] == entries[j].shand) {
+                    if(entries[j].arg) {
+                        if(args[i+1] != "") {
+                            addArg(args[i+1]);
+                        } else {
+                            error("Please provide an argument...");
+                        }
+                    }
                     entries[j].func();
                     return(0);
                 } else if (args[i] == entries[j].lhand) {
