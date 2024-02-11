@@ -80,6 +80,10 @@ vector<string> CLI::vectorize(int argc, char *argv[]) {
 
 int CLI::help(vector<CLI::entryData> entries) {
     //cout << "[opencxx-cli] Help is under construction...\n";
+    CLI::programInfo pgInfo;
+    if(pgInfo.name != "") {
+        std::cout << "["+pgInfo.name+"]";
+    }
     for(int i = 0; i < entries.size(); i++) {
         std::cout << entries[i].lhand << " || " << entries[i].shand << ": " << entries[i].desc << "\n";
     }
