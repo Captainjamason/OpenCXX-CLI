@@ -10,13 +10,21 @@
 // Some basic initialization...
 using namespace opencxx_cli;
 std::vector<CLI::entryData> entries;
+CLI cli;
 
 int testFunc() {
     return 0;
 }
 
+int testArgPassFunc() {
+    if(cli.returnArg() != "") {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
 int main(int argc, char* argv[]) {
-    CLI cli;
     std::string test = argv[1];
 
     // test output messages...
@@ -36,12 +44,13 @@ int main(int argc, char* argv[]) {
         }
     }
 
+    // Test adding one entry.
     if(test == "-addEntryOnce") {
         cli.addEntry("--test", "-t", testFunc, &entries);
         entries[0].func();
     }
 
-    //test add entry
+    // Test adding two entry.
     if(test == "-addEntryTwice") {
         cli.addEntry("--test", "-t", testFunc, &entries);
         cli.addEntry("-test2", "-t2", testFunc, &entries);
@@ -49,6 +58,7 @@ int main(int argc, char* argv[]) {
         entries[1].func();
     }
 
+    // Test parsing of arguments.
     if(test == "-testParse") {
         cli.addEntry("--test", "-t", testFunc, &entries);
         cli.addEntry("--t2", "-t2", testFunc, &entries);
@@ -61,5 +71,11 @@ int main(int argc, char* argv[]) {
             std::cout << "err: help() failed!\n";
             return 1;
         }
+    }
+
+    // test argument passing()
+    if(test == "-testArgPass") {
+        cli.addEntry("--test", "-t", testArgPassFunc, &entries, true);
+        cli.parse(entries, cli.vectorize(argc, argv));
     }
 }

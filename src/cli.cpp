@@ -11,8 +11,12 @@
 #include "../include/cli.h"
 #include "../include/colors.h"
 
+// Namespace declarations here, May rid of in the future.
 using namespace opencxx_cli;
 using namespace std;
+
+// Global argument return string. I wish this was handled a bit better but for now its good.
+string argReturn;
 
 // Initialize the main 3 debug/error message commands, 
 // along with some nice formatting from the color library.
@@ -41,14 +45,27 @@ int CLI::info(string s) {
     return 0;
 }
 
+// Small helper function to set the argReturn varaible.
+int addArg(string arg) {
+    argReturn = arg;
+    return 1;
+}
+
+// returnArg() *must* be called from a user function if `arg = true`, This will be beneficial for
+// any sort of functions that require parameters.
+string CLI::returnArg() {
+    return argReturn;
+}
+
 // addEntry() will push a new entryData struct (cli.h) into an entries
 // vector, which is established application side and a vector is provided.
-int CLI::addEntry(string lhand, string shand, int(*func)(), vector<CLI::entryData> *entries, std::string desc) {
+int CLI::addEntry(string lhand, string shand, int(*func)(), vector<CLI::entryData> *entries, bool arg, std::string desc) {
     CLI::entryData entry;
     entry.lhand = lhand;
     entry.shand = shand;
     entry.func = func;
     entry.desc = desc;
+    entry.arg = arg;
     entries -> push_back(entry);
     if(CLI::debug == true) {
         cout << entry.shand << "\n";
@@ -78,6 +95,7 @@ vector<string> CLI::vectorize(int argc, char *argv[]) {
     return args;
 }
 
+// help() is bound to `--help` by default. May be customizable in the future.
 int CLI::help(vector<CLI::entryData> entries) {
     //cout << "[opencxx-cli] Help is under construction...\n";
     CLI::programInfo pgInfo;
@@ -120,11 +138,27 @@ int CLI::parse(vector<CLI::entryData> entries, vector<string> args) {
                     cout << entries[j].lhand << "\n";
                 }
                 if(args[i] == entries[j].shand) {
+                   if(entries[j].arg) {
+                        if(args[i+1] != "") {
+                            addArg(args[i+1]);
+                        } else {
+                            error("Please provide an argument...");
+                            return 1;
+                        }
+                    }
                     entries[j].func();
                     return(0);
                 } else if (args[i] == entries[j].lhand) {
+                    if(entries[j].arg) {
+                        if(args[i+1] != "") {
+                            addArg(args[i+1]);
+                        } else {
+                            error("Please provide an argument...");
+                            return 1;
+                        }
+                    }
                     entries[j].func();
-                    return(0);
+                    return 0;
                 }
                 else if (args[i] != "--opencxx-cli-debug" && j == args.size()) {
                     error("Invalid arguments... Please use --help");

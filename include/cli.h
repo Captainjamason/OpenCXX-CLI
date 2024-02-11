@@ -30,6 +30,7 @@ namespace opencxx_cli {
             std::string shand;
             int(*func)();
             std::string desc;
+            bool arg;
         };
 
         // Basic commands.
@@ -38,12 +39,13 @@ namespace opencxx_cli {
 
         // addEntry will reference the struct above, Used to add into a vector that
         // is provided from the application.
-        int addEntry(std::string lhand, std::string shand, int (*func)(), std::vector<CLI::entryData> *entries, std::string desc = "Add a descrption in addEntry()");
+        int addEntry(std::string lhand, std::string shand, int (*func)(), std::vector<CLI::entryData> *entries, bool arg = false,std::string desc = "Add a descrption in addEntry()");
         
         // Useful function to quickly make an argument vector, this can be run
         // inline.
         std::vector<std::string> vectorize(int argc, char *argv[]);
         int parse(std::vector<entryData> entries, std::vector<std::string> args);
+        std::string returnArg();
 
         // CLI output messages.
         int error(std::string s);
